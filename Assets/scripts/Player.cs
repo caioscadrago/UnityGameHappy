@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player: MonoBehaviour
 {
     public float Velocidade = 10f;
     private float Movimento;
     public float ForcaPulo = 50f;
     private Rigidbody2D rig;
     public bool TaVoando = true;
-    
     public Rigidbody2D criar;
 
-   // private Animator animate;
+    private Animator animate;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +19,7 @@ public class Player : MonoBehaviour
         //Selecionar rigidbody do objeto
         rig = GetComponent<Rigidbody2D>();
         //selecionar animator do objeto
-       // animate = GetComponent<Animator>();
-
-
+        animate = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,20 +37,26 @@ public class Player : MonoBehaviour
         //pula
         Pulo();
 
+        TaVoando= PéDoPlayer.Tavoando;
+
+        if(!TaVoando)
+        {
+            animate.SetBool("Pulando", false);
+        }
 
         if(Movimento!=0)
         {
-            //animate.SetBool("Correndo", true);
+            animate.SetBool("Correndo", true);
         }
         else
         {
-            //animate.SetBool("Correndo", false);
+            animate.SetBool("Correndo", false);
         }
 
         //cria objeto
         if(Input.GetButton("Fire1"))
         {
-            Rigidbody2D criarclone= (Rigidbody2D) Instantiate(criar, gameObject.transform.position, gameObject.transform.rotation);
+            //Rigidbody2D criarclone= (Rigidbody2D) Instantiate(criar, gameObject.transform.position, gameObject.transform.rotation);
         }
 
 
@@ -65,31 +68,20 @@ public class Player : MonoBehaviour
         if(Input.GetButton("Jump") && !TaVoando)
         {
             rig.AddForce(new Vector2(0, ForcaPulo),ForceMode2D.Impulse);
-           // animate.SetBool("Pulando", true);
+            animate.SetBool("Pulando", true);
         }
     }
 
     void OnCollisionEnter2D(Collision2D colide)
     {
-       if(colide.gameObject.tag == "Chao")
-       {
-           TaVoando = false;
-           //animate.SetBool("Pulando", false);
-       } 
+    
       if(colide.gameObject.tag == "Enemy")
       {
           Destroy(gameObject);
       }
 
     }
-    void OnCollisionExit2D(Collision2D colide)
-    {
-       if(colide.gameObject.tag == "Chao")
-       {
-           TaVoando = true;
-           
-       } 
-    }
+   
     void VirarSprite (float DirecaoMovimento)
     {
         if(DirecaoMovimento>0)
