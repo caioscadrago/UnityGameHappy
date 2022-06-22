@@ -53,6 +53,14 @@ public class Player: MonoBehaviour
             animate.SetBool("Correndo", false);
         }
 
+
+
+        if(transform.position.y < -16)
+        {
+            transform.position = new Vector3(-9,5,0);
+        }
+
+
         //cria objeto
         if(Input.GetButton("Fire1"))
         {
@@ -67,7 +75,7 @@ public class Player: MonoBehaviour
     {
         if(Input.GetButton("Jump") && !TaVoando)
         {
-            rig.AddForce(new Vector2(0, ForcaPulo),ForceMode2D.Impulse);
+           rig.velocity = new Vector2(rig.velocity.x, ForcaPulo);
             animate.SetBool("Pulando", true);
         }
     }
@@ -95,10 +103,6 @@ public class Player: MonoBehaviour
             
         }
     }
-
-   
-        
-    
 
 
 
