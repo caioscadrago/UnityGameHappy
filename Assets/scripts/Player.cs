@@ -55,9 +55,9 @@ public class Player: MonoBehaviour
 
 
 
-        if(transform.position.y < -16)
+        if(transform.position.y < -12)
         {
-            transform.position = new Vector3(-9,5,0);
+            transform.position = new Vector3(-9,0,0);
         }
 
 
@@ -85,7 +85,7 @@ public class Player: MonoBehaviour
     
       if(colide.gameObject.tag == "Enemy")
       {
-          Destroy(gameObject);
+          transform.position = new Vector3(-9,0,0);
       }
 
     }
