@@ -10,7 +10,7 @@ public class PéDoPlayer : MonoBehaviour
  public static bool Tavoando = true;
     // Start is called before the first frame update
         
-    void OnCollisionEnter2D(Collision2D colide)
+    void OnTriggerEnter2D(Collider2D colide)
     {
        if(colide.gameObject.tag == "Chao")
        {
@@ -18,7 +18,7 @@ public class PéDoPlayer : MonoBehaviour
        } 
       
 }
- void OnCollisionExit2D(Collision2D colide)
+    void OnTriggerExit2D(Collider2D colide)
     {
        if(colide.gameObject.tag == "Chao")
        {

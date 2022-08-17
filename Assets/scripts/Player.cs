@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player: MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Player: MonoBehaviour
     public Rigidbody2D criar;
 
     private Animator animate;
+    public Transform respawn;
+    public float minHeight=-12f;
 
     // Start is called before the first frame update
     void Start()
@@ -55,9 +58,9 @@ public class Player: MonoBehaviour
 
 
 
-        if(transform.position.y < -12)
+        if(transform.position.y < minHeight)
         {
-            transform.position = new Vector3(-9,0,0);
+            transform.position = respawn.gameObject.transform.position;
         }
 
 
@@ -85,7 +88,11 @@ public class Player: MonoBehaviour
     
       if(colide.gameObject.tag == "Enemy")
       {
-          transform.position = new Vector3(-9,0,0);
+          transform.position = respawn.gameObject.transform.position;
+      }
+      if(colide.gameObject.tag == "NextLevel")
+      {
+          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
       }
 
     }
