@@ -10,6 +10,11 @@ public class Enemy : MonoBehaviour
     public LayerMask Floor;
     public bool Grounded;
 
+    public Transform WallCheck;
+    public LayerMask Wall;
+    public bool Walled;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +25,8 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         Grounded=Physics2D.OverlapCircle(FloorCheck.position,0.1f,Floor);
-        if(!Grounded)
+        Walled=Physics2D.OverlapCircle(WallCheck.position,0.1f,Wall);
+        if(!Grounded||Walled)
         {
             gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x*-1,1,1);
         }

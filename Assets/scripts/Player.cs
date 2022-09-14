@@ -16,6 +16,10 @@ public class Player: MonoBehaviour
     public Transform respawn;
     public float minHeight=-12f;
 
+    public AudioSource Death;
+
+    public AudioSource Jump;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +45,6 @@ public class Player: MonoBehaviour
         Pulo();
 
         TaVoando= PéDoPlayer.Tavoando;
-
         if(!TaVoando)
         {
             animate.SetBool("Pulando", false);
@@ -61,6 +64,7 @@ public class Player: MonoBehaviour
         if(transform.position.y < minHeight)
         {
             transform.position = respawn.gameObject.transform.position;
+            Death.Play();
         }
 
 
@@ -80,6 +84,7 @@ public class Player: MonoBehaviour
         {
            rig.velocity = new Vector2(rig.velocity.x, ForcaPulo);
             animate.SetBool("Pulando", true);
+            Jump.Play();
         }
     }
 
@@ -89,6 +94,7 @@ public class Player: MonoBehaviour
       if(colide.gameObject.tag == "Enemy")
       {
           transform.position = respawn.gameObject.transform.position;
+          Death.Play();
       }
       if(colide.gameObject.tag == "NextLevel")
       {
