@@ -20,6 +20,8 @@ public class Player: MonoBehaviour
 
     public AudioSource Jump;
 
+    public static int vida = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,11 @@ public class Player: MonoBehaviour
         //pula
         Pulo();
 
+        if(vida<0)
+        {
+            SceneManager.LoadScene("Restart");
+        }
+
         TaVoando= PéDoPlayer.Tavoando;
         if(!TaVoando)
         {
@@ -65,6 +72,7 @@ public class Player: MonoBehaviour
         {
             transform.position = respawn.gameObject.transform.position;
             Death.Play();
+            vida-=1;
         }
 
 
@@ -95,6 +103,7 @@ public class Player: MonoBehaviour
       {
           transform.position = respawn.gameObject.transform.position;
           Death.Play();
+          vida-=1;
       }
       if(colide.gameObject.tag == "NextLevel")
       {
